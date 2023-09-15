@@ -46,7 +46,6 @@ export default function RegisterUser() {
                 console.log("Invalid Registration");
             } else {
                 Cookies.set('jwtoken', data.token, {
-                    domain: '.onrender.com', 
                     expires: 7, 
                 });
                 window.alert(data.message);

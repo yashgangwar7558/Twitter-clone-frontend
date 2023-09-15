@@ -30,9 +30,8 @@ export default function SigninUser() {
             if (res.status == 400 || !data) {
                 window.alert(data.error);
             } else {
-                Cookies.set('jwtoken', data.token, {
-                    domain: '.netlify.com', 
-                    expires: 7, 
+                Cookies.set('jwtoken', data.token, { 
+                    expires: 7
                 });
                 window.alert(data.message);
                 navigate("/home")
