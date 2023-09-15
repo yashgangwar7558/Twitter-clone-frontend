@@ -45,9 +45,12 @@ export default function RegisterUser() {
                 window.alert(data.error);
                 console.log("Invalid Registration");
             } else {
-                // Cookies.set('jwtoken', data.token, {
-                //     expires: 7, 
-                // });
+                Cookies.set('jwtoken', data.token, {
+                    domain: 'dancing-puppy-71cd54.netlify.app',
+                    expires: 7,
+                    secure: true,
+                    sameSite: 'none'
+                  });
                 window.alert(data.message);
                 navigate("/home")
             }
