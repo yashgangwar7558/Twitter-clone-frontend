@@ -12,7 +12,7 @@ export default function SigninUser() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         try {
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/signin`, {
                 method: "POST",
@@ -24,20 +24,23 @@ export default function SigninUser() {
                     password
                 })
             })
-            
+
             const data = await res.json();
-    
-            if(res.status == 400 || !data) {
+
+            if (res.status == 400 || !data) {
                 window.alert(data.error);
             } else {
-                // Cookies.set('jwtoken', data.token, { expires: 10, domain: '.onrender.com' });
+                Cookies.set('jwtoken', data.token, {
+                    domain: '.onrender.com', 
+                    expires: 7, 
+                });
                 window.alert(data.message);
                 navigate("/home")
-            } 
-        } catch(err) {
+            }
+        } catch (err) {
             window.alert(err)
         }
-        
+
     }
 
     return (
