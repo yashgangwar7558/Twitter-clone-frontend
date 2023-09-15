@@ -31,7 +31,7 @@ export default function SigninUser() {
             if(res.status == 400 || !data) {
                 window.alert(data.error);
             } else {
-                Cookies.set('jwtoken', data.token, { expires: 10 });
+                Cookies.set('jwtoken', data.token, { expires: 10, domain: '.onrender.com' });
                 window.alert(data.message);
                 navigate("/home")
             } 
