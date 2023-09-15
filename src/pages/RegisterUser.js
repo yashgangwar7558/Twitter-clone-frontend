@@ -45,9 +45,9 @@ export default function RegisterUser() {
                 window.alert(data.error);
                 console.log("Invalid Registration");
             } else {
-                Cookies.set('jwtoken', data.token, {
-                    expires: 7, 
-                });
+                // Cookies.set('jwtoken', data.token, {
+                //     expires: 7, 
+                // });
                 window.alert(data.message);
                 navigate("/home")
             }
