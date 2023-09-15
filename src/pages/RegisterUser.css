@@ -1,0 +1,65 @@
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('https://img.freepik.com/free-vector/colorful-icons-set-concept_79603-1267.jpg?size=626&ext=jpg');
+  background-size: cover;
+}
+
+.inputs-section {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  animation: slide-up 0.5s ease;
+
+  margin: 0 auto;
+
+  max-width: 600px;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.signup-inputs {
+  width: 80%;
+  padding: 10px;
+  margin: 5px 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.signup-inputs-btn-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-inputs-btn {
+    background-color: #1da1f2; 
+    border-radius: 100px;
+    color: #fff;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    cursor: pointer;
+    transition: 0.5s color, 0.5s background-color;
+    font-weight: 600;
+}
+
+.signup-inputs-btn:hover {
+  background-color: #0e71a6;
+}
