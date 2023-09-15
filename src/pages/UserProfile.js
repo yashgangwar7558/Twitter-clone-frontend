@@ -13,6 +13,7 @@ import './UserProfile.css'
 
 import DesktopNavigation from '../components/DesktopNavigation';
 import DesktopSidebar from '../components/DesktopSidebar';
+import Cookies from 'js-cookie';
 
 export default function UserProfile() {
 
@@ -21,12 +22,13 @@ export default function UserProfile() {
     const [user, setUser] = useState([])
     const [myTweets, setMyTweets] = useState([])
     const [myFollowingUsers, setMyFollowingUsers] = useState([])
+    const yourToken = Cookies.get('jwtoken')
 
     const callUserProfile = async (req, res) => {
         try {
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/getuser`, {
                 method: 'GET',
-                headers: { Accept: "application/json", "Content-Type": "application/json" },
+                headers: { Accept: "application/json", "Content-Type": "application/json", 'Authorization': `Bearer ${yourToken}` },
                 credentials: "include"
             })
 
@@ -48,7 +50,7 @@ export default function UserProfile() {
             console.log(user.user_handle);
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/getweets/${user.user_handle}`, {
                 method: 'GET',
-                headers: { Accept: "application/json", "Content-Type": "application/json" },
+                headers: { Accept: "application/json", "Content-Type": "application/json", 'Authorization': `Bearer ${yourToken}` },
                 credentials: "include"
             })
             const data = await res.json();
@@ -63,7 +65,7 @@ export default function UserProfile() {
         try {
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/getusers`, {
                 method: 'GET',
-                headers: { Accept: "application/json", "Content-Type": "application/json" },
+                headers: { Accept: "application/json", "Content-Type": "application/json", 'Authorization': `Bearer ${yourToken}` },
                 credentials: "include"
             })
             const data = await res.json();

@@ -13,6 +13,7 @@ import './HomeFeedsPage.css'
 
 import DesktopNavigation from '../components/DesktopNavigation';
 import DesktopSidebar from '../components/DesktopSidebar';
+import Cookies from 'js-cookie';
 
 export default function HomeFeedsPage() {
 
@@ -24,12 +25,13 @@ export default function HomeFeedsPage() {
     const [allUsers, setAllUsers] = useState([])
     const [editMode, setEditMode] = useState(false)
     const [editTweet, setEditTweet] = useState(null)
+    const yourToken = Cookies.get('jwtoken')
 
     const callHomeFeedsPage = async () => {
         try {
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/home`, {
                 method: 'GET',
-                headers: { Accept: "application/json", "Content-Type": "application/json" },
+                headers: { Accept: "application/json", "Content-Type": "application/json", 'Authorization': `Bearer ${yourToken}` },
                 credentials: "include"
             })
 
@@ -51,7 +53,7 @@ export default function HomeFeedsPage() {
         try {
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/getweets`, {
                 method: 'GET',
-                headers: { Accept: "application/json", "Content-Type": "application/json" },
+                headers: { Accept: "application/json", "Content-Type": "application/json", 'Authorization': `Bearer ${yourToken}` },
                 credentials: "include"
             })
             const data = await res.json();
@@ -67,7 +69,7 @@ export default function HomeFeedsPage() {
         try {
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/getusers`, {
                 method: 'GET',
-                headers: { Accept: "application/json", "Content-Type": "application/json" },
+                headers: { Accept: "application/json", "Content-Type": "application/json", 'Authorization': `Bearer ${yourToken}` },
                 credentials: "include"
             })
             const data = await res.json();
