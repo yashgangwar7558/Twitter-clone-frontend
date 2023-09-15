@@ -31,7 +31,7 @@ export default function SigninUser() {
                 window.alert(data.error);
             } else {
                 Cookies.set('jwtoken', data.token, {
-                    domain: '.onrender.com', 
+                    domain: '.netlify.com', 
                     expires: 7, 
                 });
                 window.alert(data.message);
