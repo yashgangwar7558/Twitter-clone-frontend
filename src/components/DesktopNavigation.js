@@ -77,7 +77,7 @@ export default function DesktopNavigation(props) {
 
             <div className="user-detail-box">
                 <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&usqp=CAU"
+                    src={props.user.profile_pic}
                     className="avatar-image"
                     alt=""
                 />

@@ -87,7 +87,7 @@ export default function UserProfile() {
             </div>
             <div className="tweets-container-1">
                 <div class="user-profile-container">
-                    <img className="profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&usqp=CAU" alt="" />
+                    <img className="profile-image" src={user.profile_pic} alt="" />
                     <div className='info'>
                         <h2>{user.display_name}</h2>
                         <h3>@{user.user_handle}</h3>
@@ -105,7 +105,7 @@ export default function UserProfile() {
                         myTweets.map((item) => {
                             return (
                                 <div key={item.uuid} className="tweet">
-                                    <img className="tweet-img-user" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&usqp=CAU" alt="" />
+                                    <img className="tweet-img-user" src={item.pic} alt="" />
                                     <div className="tweet-content">
                                         <div className="user-info">
                                             <p className="username">{item.user}</p>

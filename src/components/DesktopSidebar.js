@@ -3,9 +3,53 @@ import React, { useEffect, useState } from 'react'
 
 export default function DesktopSidebar(props) {
 
-    const {items, user} = props
+    const [followingUsers, setfollowingUsers] = useState([])
+
+    const { items, user } = props
 
     const filteredItems = items.filter((item) => item.uuid !== user.uuid);
+
+    const followUser = async (item) => {
+        try {
+
+            const followed_by_id = user._id
+            const followed_id = item._id
+            const followed_name = item.display_name
+            const followed_handle = item.user_handle
+            const followed_pic = item.profile_pic
+
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/follow`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    followed_by_id, followed_id, followed_name, followed_handle, followed_pic
+                })
+            })
+            const data = await res.json();
+            const filter = await data.map((obj) => obj.followed_id);
+            console.log(filter);
+            setfollowingUsers(filter)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const unfollowUser = async (id) => {
+        try {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/unfollow/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            })
+            const data = await res.json();
+            console.log(data.message);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
         <div className="sidebar-body">
@@ -58,7 +102,7 @@ export default function DesktopSidebar(props) {
                                 <div className="user">
                                     <div className="user-box">
                                         <img
-                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&usqp=CAU"
+                                            src={item.profile_pic}
                                             className="avatar-image"
                                             alt=""
                                         />
@@ -67,7 +111,11 @@ export default function DesktopSidebar(props) {
                                             <h4>@{item.user_handle}</h4>
                                         </div>
                                     </div>
-                                    <button className='follow-btn'>Follow</button>
+
+                                    <button className='follow-btn' onClick={() => followUser(item)}>Follow</button>
+
+                                    {/* <button className='follow-btn' onClick={() => unfollowUser(item._id)}>Unfollow</button> */}
+
                                 </div>
                             )
                         })

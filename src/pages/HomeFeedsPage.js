@@ -88,6 +88,8 @@ export default function HomeFeedsPage() {
         try {
             const uuid = user.uuid
             const userHandle = user.user_handle
+            const userName = user.display_name
+            const profilePic = user.profile_pic
             let res
             if (editMode) {
                 res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/editweet/${editTweet}`, {
@@ -96,7 +98,7 @@ export default function HomeFeedsPage() {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        uuid, userHandle, tweet
+                        uuid, userName, userHandle, profilePic, tweet
                     })
                 })
                 setEditMode(false)
@@ -108,7 +110,7 @@ export default function HomeFeedsPage() {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        uuid, userHandle, tweet
+                        uuid, userName, userHandle, profilePic, tweet
                     })
                 })
             }
@@ -156,7 +158,7 @@ export default function HomeFeedsPage() {
                     <h1>Home</h1>
                 </div>
                 <div className="zone-tweet">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&usqp=CAU" className="avatar-image" />
+                    <img src={user.profile_pic} className="avatar-image" />
                     <div className="input-container">
                         <input type="string" className="tweet-box" placeholder="What is happening?!" maxlength="140" minlength="1" onChange={(e) => { setTweet(e.target.value) }} value={tweet} onKeyPress={(e) => {
                             if (e.key === "Enter") {
@@ -183,10 +185,10 @@ export default function HomeFeedsPage() {
                         allTweets.map((item) => {
                             return (
                                 <div key={item.uuid} className="tweet">
-                                    <img className="tweet-img-user"src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLe5PABjXc17cjIMOibECLM7ppDwMmiDg6Dw&usqp=CAU" alt="" />
+                                    <img className="tweet-img-user"src={item.pic} alt="" />
                                     <div className="tweet-content">
                                         <div className="user-info">
-                                            <p className="username">{item.user}</p>
+                                            <p className="username">{item.name}</p>
                                             <span> • </span>
                                             <p className="date">
                                                 {moment(item.updatedAt).fromNow()}

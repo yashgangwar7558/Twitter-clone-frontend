@@ -11,20 +11,31 @@ export default function RegisterUser() {
     const [userHandle, setUserHandle] = useState("")
     const [email, setEmail] = useState("")
     const [number, setNumber] = useState("")
+    const [profilePic, setProfilePic] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
+
+            let reqBody;
+            if (profilePic == "") {
+                reqBody = JSON.stringify({
+                    displayName, userHandle, email, number, password
+                })
+            } else {
+                reqBody = JSON.stringify({
+                    displayName, userHandle, email, number, profilePic, password
+                })
+            }
+
             const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    displayName, userHandle, email, number, password 
-                })
+                body: reqBody
             })
 
             const data = await res.json();
@@ -52,6 +63,7 @@ export default function RegisterUser() {
                     <input type="text" className="signup-inputs" placeholder="Username" onChange={(e) => { setUserHandle(e.target.value) }} value={userHandle} />
                     <input type="email" className="signup-inputs" placeholder="Email" onChange={(e) => { setEmail(e.target.value) }} value={email} />
                     <input type="string" className="signup-inputs" placeholder="Phone Number" onChange={(e) => { setNumber(e.target.value) }} value={number} />
+                    <input type="string" className="signup-inputs" placeholder="Profile photo URL, Note: not mandatory to fill" onChange={(e) => { setProfilePic(e.target.value) }} value={profilePic} />
                     <input type="password" className="signup-inputs" placeholder="Password" onChange={(e) => { setPassword(e.target.value) }} value={password} />
                     <input type="password" className="signup-inputs" placeholder="Confirm Password" onChange={(e) => { setConfirmPassword(e.target.value) }} value={confirmPassword} />
                     <div className="signup-inputs-btn-container">
